@@ -1,6 +1,4 @@
-# Statistics for AI & Data Science - QMID: 200851709
-
-## US Department of Transport(USDT) - Bridge Condition Analysis
+# US Department of Transport(USDT) - Bridge Condition Analysis
 
 ### Contents
 1. Introducting the Data
