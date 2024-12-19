@@ -55,10 +55,5 @@ The data used in this project is sourced from the US Department of Transport (US
 * **tx19_bridges_sample.csv:**  Dataset used in the analysis (if applicable).
 * **report.md:** a markdown version of the pre-run-notebook to allow viewing in github. 
 
-### Instructions
 
-To run the analysis, you will need to have Python and the necessary libraries installed. You can then open the Jupyter Notebook and run the code cells.
 
-### Author
-
-[Your Name] 
