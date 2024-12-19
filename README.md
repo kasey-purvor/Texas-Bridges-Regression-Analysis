@@ -1,5 +1,8 @@
 ### Project Title: US Department of Transport(USDT) - Bridge Condition Analysis
 
+**[See The Full Report](report.md)**
+
+
 ### Project Description
 
 This project investigates the condition of bridges in Texas using a dataset provided by the US Department of Transport (USDT). The goal is to develop a model to predict bridge condition based on five predictor variables: **Age, AverageDailyTraffic, Trucks_percent, Material, and Design**.  
