@@ -20,7 +20,7 @@
 																													
     2. Target vs Predictor Relationships  
         1. Plotting
-		2. Observations **************** Need to say something here 
+		2. Observations 
 		
     3. Predictor vs Predictor Relationships 
 		1. Numerical vs Numerical
