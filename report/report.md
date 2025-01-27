@@ -1,47 +1,43 @@
 # US Department of Transport(USDT) - Bridge Condition Analysis
 
 ### Contents
-1. Introducting the Data
-    1. The Data 
-    2. The Task
-2. Data Preprocessing
-    1. Initial Look At The Data
-    2. Discretizing Ordinal Target Data
-    3. Feature Engineering - Combining Target Variables
-		1. Rationale 
-		2. Observations 
-    4. Catergory Consolidation
-		1. Rationale 
-3. Exploratory Analysis & Preliminary Conclusions 
-	1. Numerical Variables 
-		1. Plots
-		2. Observations 
-		3. Modifications 
-																													
-    2. Target vs Predictor Relationships  
-        1. Plotting
-		2. Observations 
-		
-    3. Predictor vs Predictor Relationships 
-		1. Numerical vs Numerical
-		2. Catergorical vs Catergorical
-		3. Catergorical vs Numerical
-		
-    4. Preliminary Conclusions
-	
-4. Regression Analysis
-    1. Make the model 
-	2. Evaluating The Coefficients
-    3. R2 and RMSE 
-    4. Residuals 
-		1. Plots
-		2. Analysis
-    4. Predictor Influence
-    5. Final Conclusion 
+1. [Introducing the Data](#part-1--introduction)
+    1. [The Data](#part-11--the-data)
+    2. [The Task](#part-12--the-task)
+2. [Data Preprocessing](#part-2-data-preprocessing)
+    1. [Initial Look At The Data](#part-21--initial-look-at-the-data)
+    2. [Discretizing Ordinal Target Data](#part-22--discretizing-ordinal-target-data)
+    3. [Feature Engineering - Combining Target Variables](#part-23--feature-engineering---combining-target-variables)
+        1. [Rationale](#part-23a--rationale)
+        2. [Observations](#part-23b--observations)
+    4. [Category Consolidation](#part-24--category-consolidation)
+3. [Exploratory Analysis & Preliminary Conclusions](#part-3--exploratory-analysis--preliminary-conclusions)
+    1. [Numerical Variables](#part-31--numerical-variables)
+        1. [Plots](#part-31a--plots)
+        2. [Observations](#part-31b--observations)
+        3. [Modifications](#part-31c--modifications)
+    2. [Target vs Predictor Relationships](#part-32--target-vs-predictor-relationships)
+        1. [Plotting](#part-32a--plotting)
+        2. [Observations](#part-32b--observations)
+    3. [Predictor vs Predictor Relationships](#part-33--predictor-vs-predictor-relationships)
+        1. [Numerical vs Numerical](#part-33a--numerical-vs-numerical)
+        2. [Categorical vs Categorical](#part-33b--categorical-vs-categorical)
+        3. [Categorical vs Numerical](#part-33c--categorical-vs-numerical)
+    4. [Preliminary Conclusions](#part-34--preliminary-conclusions)
+4. [Regression Analysis](#part-4--regression-analysis)
+    1. [Fitting The Model](#part-41--fitting-the-model)
+    2. [Evaluating The Coefficients](#part-42--evaluating-the-coefficients)
+    3. [R2 and RMSE](#part-43--r2-and-rmse)
+    4. [Residual Analysis](#part-44--residual-analysis)
+        1. [Plots](#part-44a--plots)
+        2. [Analysis](#part-44b--analysis)
+    5. [Conclusion](#part-45--conclusion)
 
 
-## Part 1 | Introduction
-### Part 1.1 | The Data
+
+## Part 1 | Introduction {#part-1--introduction}
+
+### Part 1.1 | The Data {#part-11--the-data}
 The following dataset represent bridge data submitted annually to FHWA by the States, Federal agencies, and Tribal governments in accordance with the National Bridge Inspection Standards and the Recording and Coding Guide for the Structure Inventory and Appraisal of the Nations Bridges. 
 | Column           | Dtype   | Description                                                         |
 |------------------|---------|---------------------------------------------------------------------|
@@ -71,7 +67,7 @@ The following dataset represent bridge data submitted annually to FHWA by the St
 | Scour_rating     | catergory  | Condition rating of the bridge in terms of scour potential           |
 | Future_traffic   | int64   | Projected future traffic on the bridge                               |
 
-### Part 1.2 | The Task 
+### Part 1.2 | The Task {#part-12--the-task}
 
 The USDT has asked for an investigation into the current condition of bridges in Texas. Specifically how Five predictor variables can be used to predict the condition.
 
@@ -92,9 +88,9 @@ The USDT has asked for an investigation into the current condition of bridges in
 1. How well the proposed variables can predict the bridge condition.
 2. Which of the proposed variables has more influence on the current condition.
 
-## Part 2: Data Preprocessing
+## Part 2 | Data Preprocessing {#part-2-data-preprocessing}
 
-### Part 2.1 | Initial Look At The Data
+### Part 2.1 | Initial Look At The Data {#part-21--initial-look-at-the-data}
 
 After loading the data some cleansing is performed. The following steps are taken: 
 * The desired variables are isolated from the rest. These are: 
@@ -288,7 +284,7 @@ df_subset.head(10)
 
 
 
-### Part 2.2 | Discretizing Ordinal Target Data
+### Part 2.2 | Discretizing Ordinal Target Data {#part-22--discretizing-ordinal-target-data}
 * ***'Deck_rating, Superstr_rating & Substr_rating'***  are all catergorical variables but have an ordinal nature. 
 * There values are all coded according to the following table obtained from the US Department of Transport 
 * Therefor the data is transformed into numerical values from 1-9
@@ -499,9 +495,9 @@ df_subset
 
 
 
-### Part 2.3 | Feature Engineering - Combining Target Variables
+### Part 2.3 | Feature Engineering - Combining Target Variables {#part-23--feature-engineering---combining-target-variables}
 
-#### Part 2.3a | Rationale
+#### Part 2.3a | Rationale {#part-23a--rationale}
 
 As the target variables, **Deck Rating, Superstr_rating & Substr_rating**, have the same units, they can be combined to simplify the analysis. Here they are summed together and their total is used as the new single 'Condition' Variable. Simplifying the analysis like this may have the added benefits of: 
 * Enhancing the overall signal of common trends
@@ -551,7 +547,7 @@ plt.tight_layout(pad=3.0)
     
 
 
-### Part 2.3b | Observations 
+#### Part 2.3b | Observations {#part-23b--observations}
 
 * The original variables, **Deck Rating, Superstr_rating & Substr_rating**, have very similar distributions. With the mean rating value for all about 7. 
 * Once combined, the 'Condition' variable expectedly has a very similar distibution. With an expected mean of roughly 21, the orignal means summed. 
@@ -559,7 +555,7 @@ plt.tight_layout(pad=3.0)
 
 
 
-## Part 2.4 | Catergory Consolidation
+### Part 2.4 | Category Consolidation {#part-24--category-consolidation}
 
 ***Rationale***
 
@@ -631,12 +627,13 @@ df_subset = df_subset.drop(['Superstr_rating', 'Substr_rating', 'Deck_rating'], 
     
 
 
-## Part 3 | Exploratory Analysis & Preliminary Conclusions 
+## Part 3 | Exploratory Analysis & Preliminary Conclusions {#part-3--exploratory-analysis--preliminary-conclusions}
+
 Here we explore the distributions of and relationships between ***Age, Average Daily Traffic, Trucks Percent, Material, Design***, and the bridge's current ***condition***. This includes visualizing data patterns and correlations to set up our regression analysis. This step is crucial for predicting bridge conditions and pinpointing key influencing factors. At the end of the section a preliminary conclusion is made as to the questions asked by the USDT. 
 
-### Part 3.1 | Numerical Variables
+### Part 3.1 | Numerical Variables {#part-31--numerical-variables}
 For outlier analysis, we will look at the distribution of the numerical variables **Age, Average Daily Traffic, Trucks Percent**.
-#### Part 3.1a | Plots
+#### Part 3.1a | Plots {#part-31a--plots}
 The distributions of all the variables are plotted for inspection. Oweing to their distribution the **Trucks Percent** and **Average Daily** variables are plotted with log scale for their y-axis. 
 
 
@@ -696,7 +693,7 @@ print('The amount of bridges with an Average daily vehicle count over 30000 is '
     The amount of bridges with an Average daily vehicle count over 30000 is  2426
     
 
-### Part 3.1b | Observations
+#### Part 3.1b | Observations {#part-31b--observations}
 
  Looking at the plots above, some observations are:
  * **Condition**: 
@@ -717,7 +714,7 @@ print('The amount of bridges with an Average daily vehicle count over 30000 is '
  * **Age**: 
    * Age shows  only a few outliers around 115 years
 
-### Part 3.1c | Modifications 
+#### Part 3.1c | Modifications {#part-31c--modifications}
 The following modifications are made to the data ***Please note that these removals are easily reversable. As the data was predicted to unduly affect the results***: 
  * **Age**: 
    * Historic bridges are removed from the data. This lowers the amount of outliers at the higher end of the distribution slightly. As shown in the lower kde in the comparative plots. 
@@ -792,13 +789,13 @@ plt.show()
     
 
 
-### Part 3.2 | Target vs Predictor Relationships 
+### Part 3.2 | Target vs Predictor Relationships {#part-32--target-vs-predictor-relationships}
 In this section, we will examine the relationships between the five predictor variables ***Age, Average Daily Traffic, Trucks Percent, Material, Design*** against the **Condition**. The objective of this analysis is to: 
 
 *  To understand how each predictor influences the target variable
 * Identify key drivers and understand causality. 
 
-#### Part 3.2a | Plotting
+#### Part 3.2a | Plotting {#part-32a--plotting}
 
 The various combinations of predictor vs target are plotted below. 
 * For catergorical variables, the countplots and boxplots are used.
@@ -865,7 +862,7 @@ plt.tight_layout(pad=3.0)
     
 
 
-### Part 3.2b | Observations
+#### Part 3.2b | Observations {#part-32b--observations}
 
 * ***Material vs Condition***
     1. **Concrete** has the highest mode, mean and median of any material. 
@@ -889,11 +886,11 @@ plt.tight_layout(pad=3.0)
     * **Age is a predictor of bridge condition**
 
 
-### Part 3.3 | Predictor vs Predictor Relationships
+### Part 3.3 | Predictor vs Predictor Relationships {#part-33--predictor-vs-predictor-relationships}
 In this section, we will examine the relationships between the five predictor variables ***Age, Average Daily Traffic, Trucks Percent, Material, Design*** . The findings of this analysis will allow us to: 
 * Identify correlations, multicollinearity, and interactions between predictors.
 
-#### Part 3.3a | Numerical vs Numerical
+#### Part 3.3a | Numerical vs Numerical {#part-33a--numerical-vs-numerical}
 
 This analysis shows that there is very little correlation between the variables. Indicating that they are independent of each other. This will have the benefit of reducing multicollinearity.
 
@@ -935,7 +932,7 @@ sns.heatmap(corr_matrix, annot=True, cmap='coolwarm')
     
 
 
-#### Part 3.3b | Catergorical vs Catergorical
+#### Part 3.3b | Categorical vs Categorical {#part-33b--categorical-vs-categorical}
 
 This analysis shows the frequency distributions of  the 2 catergorical variables. 
 
@@ -1021,7 +1018,7 @@ plt.show()
     
 
 
-#### Part 3.3c | Catergorical vs Numerical
+#### Part 3.3c | Categorical vs Numerical {#part-33c--categorical-vs-numerical}
 
 The ***AverageDaily, Trucks_percent, Age*** variables are shown plotted against the ***Material, Design*** variables as kdeplots and boxplots below
 
@@ -1086,7 +1083,7 @@ plt.show()
     
 
 
-## Part 3.4 | Preliminary Conclusions
+### Part 3.4 | Preliminary Conclusions {#part-34--preliminary-conclusions}
 
 Having completed the exploratory data analysis, we can now make some preliminary conclusions about the data.
  
@@ -1096,10 +1093,10 @@ Having completed the exploratory data analysis, we can now make some preliminary
 > * As the ***slab*** design shows a slight association with worse condition. It also has an association with ***Age***, which is a predictor of ***Condition*** it therefore could be a significant predictor. However as it is a comparatively low frequency design the affect may be insignificant. 
 >
 > To Summarize - I beleive the ***Age*** will have the most influence on a bridges current condition. ***Mterial & Design*** will have a lesser, but potentially significant, influence. While ***AverageDaily & Truck_percentage*** will have the least incluence, if any.
-## Part 4 | Regression Analysis
+## Part 4 | Regression Analysis {#part-4--regression-analysis}
 This section constructs a linear regression model to examine the effects of the five predictor variables on the target variable, bridge condition. The coefficient of determination (R2) and the Root Mean Squared Error (RMSE) will be presented and evaluated. The distribution of residuals will also be shown and discussed. Finally, the regression coefficients will be used to compare the impact of each predictor variable, enabling us to draw conclusions about their relative influence on bridge condition.
 
-### Part 4.1 | Fitting The Model
+### Part 4.1 | Fitting The Model {#part-41--fitting-the-model}
 
 A linear regression model is fitted. 
 * The catergorical variables are one-hot-encoded to create dummy variables.
@@ -1118,7 +1115,7 @@ import statsmodels.api as sm
 df_subset = pd.get_dummies(df_subset, columns=['Material', 'Design'], drop_first=True) 
 ```
 
-### Part 4.2 | Evaluating The Coefficients 
+### Part 4.2 | Evaluating The Coefficients {#part-42--evaluating-the-coefficients}
 
 The coefficients are are multiplied by their corresponding variables range to find their scaled impact. 
 
@@ -1173,7 +1170,7 @@ for i, col in enumerate(X.columns):
     * Followed by Other
 * The slab design was predicted as the design most likely to be in worse condition
 
-### Part 4.3 | R2 and RMSE
+### Part 4.3 | R2 and RMSE {#part-43--r2-and-rmse}
 
 * ***R²  = 0.452***: The model explains about 45.2% of the variability in the condition variable. This leaves plenty of room for unexplained factors or potential improvements.
 
@@ -1190,11 +1187,11 @@ print('Root Mean Squared Error(training):  ', root_mean_squared_error(y, y_pred)
     Root Mean Squared Error(training):   1.473250633784173
     
 
-### Part 4.4 | Residual Analysis
+### Part 4.4 | Residual Analysis {#part-44--residual-analysis}
 
 In this section the residual produced by the analysis are plotted and analysed. 
 
-#### Part 4.4a | Plots
+#### Part 4.4a | Plots {#part-44a--plots}
 
 Here we look at the following:
 * (1) Residual histogram
@@ -1241,14 +1238,14 @@ fig.tight_layout(pad=3.0)
     
 
 
-#### Part 4.4b | Analysis
+#### Part 4.4b | Analysis {#part-44b--analysis}
 
 ***Some Observations Are***: 
 * Plots 1 & 2 shows that the distribution of the residuals is almost normally distributed. However the Q-Q plot shows that model is underestimating the lower values of the model. 
 * Plot 3, the residual vs predicted, shows a nearly horizontal regresion line about 0. This implies the models mean prediction error is zero. Indicating no systemic bias. However the spread of the values about the line indicated there is substantial unexplaoined variance 
 * Plot 4, the actual vs predicted, shows a diagonal line indicating the model does reasonably well in matching predicted values to actual values. However there's noticeable dispersion around this diagonal, especially at the lower extreme, suggesting variability in predictions.
 
-### Part 4.5 | Conclusion
+### Part 4.5 | Conclusion {#part-45--conclusion}
 
 #### Final Conclusion
 
